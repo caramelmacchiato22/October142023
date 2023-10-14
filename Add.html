@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link href="Content/Site.css" rel="stylesheet" />
+    <link href="Content/bootstrap-grid.css" rel="stylesheet" />
+    <title>PEEOPLE</title>
+</head>
+<body>
+    <div class="row p-2">
+            <label>Last Name: </label>
+                <input type="text" id="lastname" placeholder="Enter Last Name" />
+            <br />
+            <label>First Name: </label>
+                <input type="text" id="firstname" placeholder="Enter First Name" />
+            <br />
+            <button class="btn-primary" id="btnsave">Save</button>
+    </div>
+
+    <script src="Scripts/jquery-3.4.1.js"></script>
+    <script src="Scripts/bootstrap.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#btnsave").click(function () {
+                AddPerson();
+            });
+
+        });
+
+        function AddPerson() {
+            var persondata = new Object()
+            persondata.LastName = $("#lastname").val();
+            persondata.FirstName = $("#firstname").val();
+            $.ajax({
+                type: "POST",
+                url: "api/People",
+                dataType: "json",
+                data: persondata,
+                beforeSend: function (data) {
+                },
+                complete: function (data) {
+                },
+                success: function (data) {
+                    alert("Success")
+                },
+                error: function (jqXhr, textStatus, errorThrown) { //variables lang to. pwede rin (data) lang
+                    var error = JSON.parse(jqXhr.responseText);
+                    console.log(data.responseText);
+                    alert(error.Message);
+                }
+            });
+        };
+
+    </script>
+
+</body>
+</html>
+
+<!--file:///C:/Users/COLLEGELAB-11/source/repos/October142023/Add.html-->
